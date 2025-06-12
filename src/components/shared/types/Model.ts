@@ -1,5 +1,5 @@
 export type Model = {
-    id: number;
-    name?: string;
-    averageRating: number;
+  id: number;
+  name?: string;
+  averageRating: number;
 };
