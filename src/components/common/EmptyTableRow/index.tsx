@@ -5,7 +5,7 @@ export const EmptyTableRow: FC = () => {
   return (
     <TableRow>
       <TableCell colSpan={100}>
-        <Stack alignItems={"center"} justifyContent={"center"}>
+        <Stack alignItems={"center"} justifyContent={"center"} >
           <Typography>No data available</Typography>
         </Stack>
       </TableCell>

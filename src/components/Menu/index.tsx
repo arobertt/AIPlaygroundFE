@@ -27,7 +27,7 @@ export const Menu: FC = () => {
                     />
                     <Box className={"menu-title"}>AI Playground</Box>
                 </Stack>
-                <List sx={{width: "95%"}}>
+                <List sx={{width: "90%"}}>
                     <ListItem key={"home"} disablePadding>
                         <ListItemButton onClick={() => navigate("/")}>
                             <ListItemIcon>

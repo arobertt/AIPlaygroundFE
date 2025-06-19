@@ -1,4 +1,4 @@
 export interface ModelRunModel {
-    id: number;
+    modelId: number;
     temperature: number;
 }

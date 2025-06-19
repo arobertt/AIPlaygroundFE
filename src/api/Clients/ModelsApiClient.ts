@@ -9,4 +9,11 @@ export const ModelsApiClient = {
       (response) => response.data
     );
   },
+
+  async getOneAsync(id: number): Promise<ModelModel> {
+    return AIPlaygroundApiClient.get<ModelModel>(this.urlPath + "/" + id).then(
+      (response) => response.data
+    );
+  },
+
 };

@@ -19,16 +19,16 @@ import { renderLabelDisplayedRows } from "../shared/utils/table.util";
 import { Prompt } from "../shared/types/Prompt";
 import { PromptsApiClient } from "../../api/Clients/PromptsApiClient";
 import { PromptModel } from "../../api/Models/PromptModel";
-import { DeletePopup } from "../common/DeletePopup/index";
-import { CreatePromptPopup } from "./CreatePromptPopup";
-
+import { DeletePopup } from "../common/DeletePopup";
+import { useNavigate } from "react-router-dom";
 
 export const Prompts: FC = () => {
   const [prompts, setPrompts] = useState<Prompt[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [openDeletePopup, setOpenDeletePopup] = useState<boolean>(false);
   const [promptToDelete, setPromptToDelete] = useState<Prompt>();
-  const [openCreatePopup, setOpenCreatePopup] = useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   const columns = [
     {
@@ -70,34 +70,25 @@ export const Prompts: FC = () => {
       setIsLoading(false);
     } catch (error: any) {
       console.log(error);
-      setIsLoading(false);
     }
   };
 
-  const deletePrompt = async (prompt: Prompt) => {
+  const deletePrompt = async (promptToDelete: Prompt) => {
     try {
-      if (!prompt.id) {
+      if (!promptToDelete.id) {
         return;
       }
 
-      await PromptsApiClient.deleteOneAsync(prompt.id);
+      await PromptsApiClient.deleteOneAsync(promptToDelete.id);
 
-      setPrompts(prompts.filter((p) => p.id !== prompt.id));
+      setPrompts(prompts.filter((p) => p.id !== promptToDelete.id));
     } catch (error: any) {
       console.log(error);
     }
   };
 
   const handleCreatePrompt = () => {
-    setOpenCreatePopup(true);
-  };
-
-  const handleCloseCreatePopup = () => {
-    setOpenCreatePopup(false);
-  };
-
-  const handlePromptCreated = (newPrompt: Prompt) => {
-    setPrompts([...prompts, newPrompt]);
+    navigate("/prompts/create");
   };
 
   const renderActions = (prompt: Prompt) => {
@@ -135,7 +126,16 @@ export const Prompts: FC = () => {
               {prompts && prompts.length ? (
                 <>
                   {prompts.map((prompt: Prompt, index: number) => (
-                    <TableRow key={index} className={"prompts-table-row"}>
+                    <TableRow
+                      key={index}
+                      className={"prompts-table-row"}
+                      onDoubleClick={() =>
+                        navigate(`/prompts/view/${prompt.id}`)
+                      }
+                      sx={{
+                        cursor: "pointer",
+                      }}
+                    >
                       <TableCell align="center">{prompt.id}</TableCell>
                       <TableCell align="center">{prompt.name}</TableCell>
                       <TableCell align="center">
@@ -163,13 +163,6 @@ export const Prompts: FC = () => {
           {renderLabelDisplayedRows(prompts.length, "prompts")}
         </Box>
       </Box>
-      
-      <CreatePromptPopup
-        open={openCreatePopup}
-        onClose={handleCloseCreatePopup}
-        onCreated={handlePromptCreated}
-      />
-      
       <DeletePopup
         entityTitle={promptToDelete?.name ?? "Unknown"}
         open={openDeletePopup}

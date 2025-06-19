@@ -1,4 +1,4 @@
-.scopes-wrapper {
+.runs-wrapper {
     overflow: auto;
     padding: 1rem;
     display: flex;
@@ -6,27 +6,36 @@
     gap: 1rem;
   }
   
-  .scopes-title {
+  .runs-title {
     color: #480c44;
     font-size: 40px;
     font-weight: 500;
     padding: 1rem;
   }
   
-  .scopes-table-container {
+  .runs-table-container {
     max-height: calc(100vh - 19rem);
     border-radius: 1rem 1rem 0 0 !important;
   }
   
-  .scopes-table-row td {
+  .runs-table-row td {
     font-size: 20px !important;
     padding: 0.25rem;
   }
   
-  .scopes-table-footer {
+  .runs-table-row:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background-color: #f5f5f5;
+  }
+  
+  .runs-table-footer {
     border-radius: 0 0 1rem 1rem;
     padding: 1rem;
     text-align: center;
     background-color: #480c44;
     color: #f2f1ef !important;
+  }
+  .runs-table-container .MuiTableHead-root {
+    position: sticky;
+    top: 0;
   }
