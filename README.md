@@ -1,46 +1,64 @@
-# Getting Started with Create React App
+# AI Playground — Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+*A React + TypeScript interface for testing and comparing LLM prompts across providers.*
 
-## Available Scripts
+![React 19](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![MUI](https://img.shields.io/badge/MUI-7-007FFF?logo=mui&logoColor=white)
+![React Router](https://img.shields.io/badge/React%20Router-7-CA4245?logo=reactrouter&logoColor=white)
 
-In the project directory, you can run:
+This is the web client for **AI Playground** — a workspace for prompt engineering where you author
+prompts, run them against models from multiple AI providers, and compare the rated responses side by
+side. It talks to the ASP.NET Core API in
+**[AiPlaygroundBE](https://github.com/arobertt/AiPlaygroundBE)**.
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **Platforms & models** — browse the AI providers and models available to run against.
+- **Scopes** — organise prompts into categories, with create / edit / delete.
+- **Prompts** — author a prompt (system message, user message, expected result) and manage it.
+- **Runs** — launch a prompt against one or more models at chosen temperatures, then review each
+  response next to its automatic score and your own rating.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Tech stack
 
-### `npm test`
+- **React 19** with **TypeScript**
+- **Material UI (MUI)** for components and theming
+- **React Router** for navigation
+- **Axios** API layer, organised into typed clients (`src/api/Clients`) and models (`src/api/Models`)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Getting started
 
-### `npm run build`
+### Prerequisites
+- [Node.js](https://nodejs.org/) (18+ recommended)
+- The backend running locally — see [AiPlaygroundBE](https://github.com/arobertt/AiPlaygroundBE)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Install & run
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm install
+npm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The app runs at [http://localhost:3000](http://localhost:3000).
 
-### `npm run eject`
+> **API base URL** — the client expects the backend at `https://localhost:7004/api/`. If yours runs
+> elsewhere, change the `baseURL` in [`src/api/Base/BaseApiClient.ts`](src/api/Base/BaseApiClient.ts).
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Project structure
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+src/
+├── api/            # Axios clients and request/response models, grouped by resource
+├── components/     # Feature screens (Home, Platforms, Scopes, Prompts, Runs) + shared UI
+├── configs/        # Route definitions
+└── App.tsx         # Theme + layout shell
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Available scripts
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+| Command | Description |
+|---------|-------------|
+| `npm start` | Run the dev server with hot reload |
+| `npm run build` | Produce an optimised production build |
+| `npm test` | Run the test runner |
